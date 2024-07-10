@@ -1,4 +1,4 @@
-![CarRental](https://github.com/karalesus/CarRentalProject/assets/109057061/db17c5f2-28b1-4a6c-8d5e-c558d5d98ea7)# CarRentalProject
+CarRentalProject
 **Каральчук Олеся, УВП-211**
 
 Учебная практика 2024. Реализация сервиса для аренды автомобилей премиум класса.
