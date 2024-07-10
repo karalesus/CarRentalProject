@@ -15,5 +15,6 @@ CarRentalProject
 "ПРОСРОЧЕН" — в течение определенного времени не осуществлена оплата. 
 
 **Диаграмма классов**
-![CarRental](https://github.com/karalesus/CarRentalProject/assets/109057061/7f3a0629-710b-4c1b-bd97-b206d5761797)
+![CarRental](https://github.com/karalesus/CarRentalProject/assets/109057061/1eeb42c3-131b-4311-82cb-9256342f4810)
+
 
