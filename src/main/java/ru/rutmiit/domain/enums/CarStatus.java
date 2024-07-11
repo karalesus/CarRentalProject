@@ -1,4 +1,4 @@
-package ru.rutmiit.enitity.enums;
+package ru.rutmiit.domain.enums;
 
 public enum CarStatus {
     AVAILABLE,

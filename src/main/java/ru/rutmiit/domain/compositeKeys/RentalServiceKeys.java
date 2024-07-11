@@ -1,4 +1,4 @@
-package ru.rutmiit.enitity.compositeKeys;
+package ru.rutmiit.domain.compositeKeys;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

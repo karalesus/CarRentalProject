@@ -1,8 +1,8 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 import jakarta.persistence.*;
-import ru.rutmiit.enitity.enums.PaymentMethod;
-import ru.rutmiit.enitity.enums.PaymentStatus;
+import ru.rutmiit.domain.enums.PaymentMethod;
+import ru.rutmiit.domain.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;

@@ -1,9 +1,9 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import ru.rutmiit.enitity.compositeKeys.RentalServiceKeys;
+import ru.rutmiit.domain.compositeKeys.RentalServiceKeys;
 
 @Entity
 @Table(name = "rental_service")

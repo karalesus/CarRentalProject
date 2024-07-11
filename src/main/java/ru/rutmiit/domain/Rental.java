@@ -1,4 +1,4 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 import jakarta.persistence.*;
-import ru.rutmiit.enitity.enums.CarStatus;
+import ru.rutmiit.domain.enums.CarStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
