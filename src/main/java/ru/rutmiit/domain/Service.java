@@ -14,6 +14,14 @@ public class Service extends IdEntity {
     private String description;
     private BigDecimal price;
 
+    public Service(String name, String description, BigDecimal price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    protected Service() {}
+
     @Column(nullable = false)
     public String getName() {
         return name;

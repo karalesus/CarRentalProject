@@ -23,7 +23,7 @@ public class Client extends IdEntity {
         this.driversLicense = driversLicense;
     }
 
-    public Client() {}
+    protected Client() {}
 
     @Column(name = "first_name", nullable = false)
 

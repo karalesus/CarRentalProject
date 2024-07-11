@@ -24,6 +24,6 @@ public class RentalService {
         this.id = id;
     }
 
-    public RentalService() {
+    protected RentalService() {
     }
 }

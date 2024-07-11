@@ -27,7 +27,7 @@ public class Payment extends IdEntity {
         this.rentals = rentals;
     }
 
-    public Payment() {
+    protected Payment() {
     }
 
     @Column(nullable = false)

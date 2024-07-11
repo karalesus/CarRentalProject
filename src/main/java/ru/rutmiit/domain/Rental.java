@@ -28,7 +28,7 @@ public class Rental extends IdEntity {
         this.payment = payment;
     }
 
-    public Rental() {
+    protected Rental() {
     }
 
     @Column(name = "start_date", nullable = false)

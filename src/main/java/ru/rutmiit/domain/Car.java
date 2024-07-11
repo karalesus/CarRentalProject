@@ -32,7 +32,7 @@ public class Car extends IdEntity {
         this.carStatus = carStatus;
     }
 
-    public Car() {
+    protected Car() {
     }
 
     @Column(nullable = false)
