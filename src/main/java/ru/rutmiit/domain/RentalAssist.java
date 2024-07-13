@@ -7,7 +7,7 @@ import ru.rutmiit.domain.compositeKeys.RentalServiceKeys;
 
 @Entity
 @Table(name = "rental_service")
-public class RentalService {
+public class RentalAssist {
 
     RentalServiceKeys id;
 
@@ -20,10 +20,10 @@ public class RentalService {
         this.id = id;
     }
 
-    public RentalService(RentalServiceKeys id) {
+    public RentalAssist(RentalServiceKeys id) {
         this.id = id;
     }
 
-    protected RentalService() {
+    protected RentalAssist() {
     }
 }

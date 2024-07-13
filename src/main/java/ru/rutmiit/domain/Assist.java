@@ -8,19 +8,19 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "service")
-public class Service extends IdEntity {
+public class Assist extends IdEntity {
 
     private String name;
     private String description;
     private BigDecimal price;
 
-    public Service(String name, String description, BigDecimal price) {
+    public Assist(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
     }
 
-    protected Service() {}
+    protected Assist() {}
 
     @Column(nullable = false)
     public String getName() {
