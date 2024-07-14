@@ -3,24 +3,24 @@ package ru.rutmiit.domain;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import ru.rutmiit.domain.compositeKeys.RentalServiceKeys;
+import ru.rutmiit.domain.compositeKeys.RentalAssistKeys;
 
 @Entity
-@Table(name = "rental_service")
+@Table(name = "rental_assist")
 public class RentalAssist {
 
-    RentalServiceKeys id;
+    private RentalAssistKeys id;
 
     @EmbeddedId
-    public RentalServiceKeys getId() {
+    public RentalAssistKeys getId() {
         return id;
     }
 
-    public void setId(RentalServiceKeys id) {
+    public void setId(RentalAssistKeys id) {
         this.id = id;
     }
 
-    public RentalAssist(RentalServiceKeys id) {
+    public RentalAssist(RentalAssistKeys id) {
         this.id = id;
     }
 

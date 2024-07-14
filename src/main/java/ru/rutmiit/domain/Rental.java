@@ -2,9 +2,11 @@ package ru.rutmiit.domain;
 
 
 import jakarta.persistence.*;
+import ru.rutmiit.domain.enums.EventType;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "rental")
@@ -14,15 +16,18 @@ public class Rental extends IdEntity {
     private Date finishDate;
     private String deliveryPlace;
     private LocalTime deliveryTime;
+    private EventType eventType;
     private Client client;
     private Car car;
     private Payment payment;
+    private List<RentalAssist> rentalAssist;
 
-    public Rental(Date startDate, Date finishDate, String deliveryPlace, LocalTime deliveryTime, Client client, Car car, Payment payment) {
+    public Rental(Date startDate, Date finishDate, String deliveryPlace, LocalTime deliveryTime, EventType eventType, Client client, Car car, Payment payment) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.deliveryPlace = deliveryPlace;
         this.deliveryTime = deliveryTime;
+        this.eventType = eventType;
         this.client = client;
         this.car = car;
         this.payment = payment;
@@ -67,6 +72,14 @@ public class Rental extends IdEntity {
         this.deliveryTime = deliveryTime;
     }
 
+    @Column(name = "event_type", nullable = false)
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client_id", nullable = false)
@@ -96,5 +109,15 @@ public class Rental extends IdEntity {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    @OneToMany(mappedBy = "id.rental",
+            targetEntity = RentalAssist.class)
+    public List<RentalAssist> getRentalAssist() {
+        return rentalAssist;
+    }
+
+    public void setRentalAssist(List<RentalAssist> rentalAssist) {
+        this.rentalAssist = rentalAssist;
     }
 }
