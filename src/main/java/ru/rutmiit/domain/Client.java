@@ -11,11 +11,11 @@ public class Client extends IdEntity {
     private String lastName;
     private String patronymic;
     private String phoneNumber;
-    private int driversLicense;
+    private String driversLicense;
     private List<Payment> payments;
     private List<Rental> rentals;
 
-    public Client(String firstName, String lastName, String patronymic, String phoneNumber, int driversLicense) {
+    public Client(String firstName, String lastName, String patronymic, String phoneNumber, String driversLicense) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.patronymic = patronymic;
@@ -63,11 +63,11 @@ public class Client extends IdEntity {
     }
 
     @Column(name = "drivers_license")
-    public int getDriversLicense() {
+    public String getDriversLicense() {
         return driversLicense;
     }
 
-    public void setDriversLicense(int driversLicense) {
+    public void setDriversLicense(String driversLicense) {
         this.driversLicense = driversLicense;
     }
 
