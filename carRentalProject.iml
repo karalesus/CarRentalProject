@@ -14,7 +14,7 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
-          <factory-entry name="car_rental" />
+          <factory-entry name="entityManagerFactory" value="42663ee0-f4a6-4e5e-850f-47d4790a661e" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
