@@ -4,6 +4,7 @@ package ru.rutmiit.domain;
 import jakarta.persistence.*;
 import ru.rutmiit.domain.enums.EventType;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.List;
 @Table(name = "rental")
 public class Rental extends IdEntity {
 
-    private Date startDate;
-    private Date finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
     private String deliveryPlace;
     private LocalTime deliveryTime;
     private EventType eventType;
@@ -22,7 +23,7 @@ public class Rental extends IdEntity {
     private Payment payment;
     private List<RentalAssist> rentalAssist;
 
-    public Rental(Date startDate, Date finishDate, String deliveryPlace, LocalTime deliveryTime, EventType eventType, Client client, Car car, Payment payment) {
+    public Rental(LocalDate startDate, LocalDate finishDate, String deliveryPlace, LocalTime deliveryTime, EventType eventType, Client client, Car car, Payment payment) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.deliveryPlace = deliveryPlace;
@@ -37,20 +38,20 @@ public class Rental extends IdEntity {
     }
 
     @Column(name = "start_date", nullable = false)
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
     @Column(name = "finish_date", nullable = false)
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 

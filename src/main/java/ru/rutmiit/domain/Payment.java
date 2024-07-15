@@ -1,7 +1,6 @@
 package ru.rutmiit.domain;
 
 import jakarta.persistence.*;
-import ru.rutmiit.domain.enums.PaymentMethod;
 import ru.rutmiit.domain.enums.PaymentStatus;
 
 import java.math.BigDecimal;
@@ -12,15 +11,13 @@ import java.util.List;
 @Table(name = "payment")
 public class Payment extends IdEntity {
     private BigDecimal price;
-    private PaymentMethod paymentMethod;
     private OffsetDateTime dateTime; // timestamp + timezone
     private PaymentStatus paymentStatus;
     private Client client;
     private List<Rental> rentals;
 
-    public Payment(BigDecimal price, PaymentMethod paymentMethod, OffsetDateTime dateTime, PaymentStatus paymentStatus, Client client, List<Rental> rentals) {
+    public Payment(BigDecimal price, OffsetDateTime dateTime, PaymentStatus paymentStatus, Client client, List<Rental> rentals) {
         this.price = price;
-        this.paymentMethod = paymentMethod;
         this.dateTime = dateTime;
         this.paymentStatus = paymentStatus;
         this.client = client;
@@ -37,16 +34,6 @@ public class Payment extends IdEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    @Column(name = "payment_method")
-    @Enumerated(EnumType.STRING)
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
     }
 
     @Column(name = "payment_date")

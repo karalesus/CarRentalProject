@@ -1,7 +1,6 @@
 package ru.rutmiit.domain;
 
 import jakarta.persistence.*;
-import ru.rutmiit.domain.enums.CarStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,10 +16,10 @@ public class Car extends IdEntity {
     private int mileage;
     private String licensePlate;
     private BigDecimal price;
-    private CarStatus carStatus;
+    private boolean isAvailable;
     private List<Rental> rentals;
 
-    public Car(String brand, String model, String type, int releaseDate, String color, int mileage, String licensePlate, BigDecimal price, CarStatus carStatus) {
+    public Car(String brand, String model, String type, int releaseDate, String color, int mileage, String licensePlate, BigDecimal price, boolean isAvailable, List<Rental> rentals) {
         this.brand = brand;
         this.model = model;
         this.type = type;
@@ -29,7 +28,8 @@ public class Car extends IdEntity {
         this.mileage = mileage;
         this.licensePlate = licensePlate;
         this.price = price;
-        this.carStatus = carStatus;
+        this.isAvailable = true;
+        this.rentals = rentals;
     }
 
     protected Car() {
@@ -107,14 +107,13 @@ public class Car extends IdEntity {
         this.price = price;
     }
 
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    public CarStatus getCarStatus() {
-        return carStatus;
+    @Column(name = "is_available")
+    public boolean isAvailable() {
+        return isAvailable;
     }
 
-    public void setCarStatus(CarStatus carStatus) {
-        this.carStatus = carStatus;
+    public void setAvailable(boolean available) {
+        isAvailable = available;
     }
 
     @OneToMany(mappedBy = "car", targetEntity = Rental.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
