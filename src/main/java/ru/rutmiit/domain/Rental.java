@@ -74,6 +74,7 @@ public class Rental extends IdEntity {
     }
 
     @Column(name = "event_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     public EventType getEventType() {
         return eventType;
     }
