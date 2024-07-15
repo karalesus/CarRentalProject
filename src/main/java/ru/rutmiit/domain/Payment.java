@@ -18,8 +18,8 @@ public class Payment extends IdEntity {
 
     public Payment(BigDecimal price, OffsetDateTime dateTime, PaymentStatus paymentStatus, Client client, List<Rental> rentals) {
         this.price = price;
-        this.dateTime = dateTime;
-        this.paymentStatus = paymentStatus;
+        this.dateTime = OffsetDateTime.now();
+        this.paymentStatus = PaymentStatus.PENDING;
         this.client = client;
         this.rentals = rentals;
     }

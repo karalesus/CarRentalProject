@@ -28,7 +28,7 @@ public class Rental extends IdEntity {
         this.finishDate = finishDate;
         this.deliveryPlace = deliveryPlace;
         this.deliveryTime = deliveryTime;
-        this.eventType = eventType;
+        this.eventType = EventType.OTHER;
         this.client = client;
         this.car = car;
         this.payment = payment;
