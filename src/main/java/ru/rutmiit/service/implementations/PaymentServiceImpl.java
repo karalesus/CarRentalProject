@@ -10,12 +10,8 @@ import ru.rutmiit.service.PaymentService;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    private final PaymentRepositoryImpl paymentRepositoryImpl;
-
     @Autowired
-    public PaymentServiceImpl(PaymentRepositoryImpl paymentRepositoryImpl) {
-        this.paymentRepositoryImpl = paymentRepositoryImpl;
-    }
+    private PaymentRepositoryImpl paymentRepositoryImpl;
 
     public void completePayment(Payment payment) {
         payment.setPaymentStatus(PaymentStatus.COMPLETED);

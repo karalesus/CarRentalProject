@@ -1,5 +1,6 @@
 package ru.rutmiit.service;
 
+import org.springframework.stereotype.Service;
 import ru.rutmiit.domain.*;
 import ru.rutmiit.domain.enums.EventType;
 import ru.rutmiit.dto.CarDTO;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
+@Service
 
 public interface RentalService {
 

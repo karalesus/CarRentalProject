@@ -23,24 +23,18 @@ import java.util.List;
 @Service
 public class RentalServiceImpl implements RentalService {
 
-    private final RentalRepositoryImpl rentalRepositoryImpl;
-    private final CarRepository carRepository;
-    private final AssistRepository assistRepository;
-    private final ClientRepository clientRepository;
-    private final PaymentRepositoryImpl paymentRepositoryImpl;
-    private final RentalAssistRepositoryImpl rentalAssistRepositoryImpl;
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public RentalServiceImpl(RentalRepositoryImpl rentalRepositoryImpl, CarRepository carRepository, AssistRepository assistRepository, ClientRepository clientRepository, PaymentRepositoryImpl paymentRepositoryImpl, RentalAssistRepositoryImpl rentalAssistRepositoryImpl, ModelMapper modelMapper) {
-        this.rentalRepositoryImpl = rentalRepositoryImpl;
-        this.carRepository = carRepository;
-        this.assistRepository = assistRepository;
-        this.clientRepository = clientRepository;
-        this.paymentRepositoryImpl = paymentRepositoryImpl;
-        this.rentalAssistRepositoryImpl = rentalAssistRepositoryImpl;
-        this.modelMapper = modelMapper;
-    }
+    private RentalRepositoryImpl rentalRepositoryImpl;
+    @Autowired
+    private CarRepository carRepository;
+    @Autowired
+    private AssistRepository assistRepository;
+    @Autowired
+    private PaymentRepositoryImpl paymentRepositoryImpl;
+    @Autowired
+    private RentalAssistRepositoryImpl rentalAssistRepositoryImpl;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public BigDecimal calculateTotalCost(Car car, LocalDate startDate, LocalDate finishDate, List<String> assists) {

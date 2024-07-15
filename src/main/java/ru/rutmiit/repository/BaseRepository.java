@@ -3,7 +3,6 @@ package ru.rutmiit.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import ru.rutmiit.domain.Payment;
 
 public abstract class BaseRepository<DomainEntity, T> {
     private final Class<DomainEntity> entityClass;
