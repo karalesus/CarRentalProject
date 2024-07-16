@@ -1,6 +1,9 @@
 package ru.rutmiit.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import ru.rutmiit.domain.enums.EventType;
 
@@ -28,7 +31,7 @@ public class Rental extends IdEntity {
         this.finishDate = finishDate;
         this.deliveryPlace = deliveryPlace;
         this.deliveryTime = deliveryTime;
-        this.eventType = EventType.OTHER;
+        this.eventType = eventType;
         this.client = client;
         this.car = car;
         this.payment = payment;
@@ -103,8 +106,9 @@ public class Rental extends IdEntity {
         this.car = car;
     }
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "payment_id", nullable = false)
+    @JsonBackReference
     public Payment getPayment() {
         return payment;
     }
