@@ -18,8 +18,8 @@ public class RentalDTO extends IdDTO {
     private String deliveryPlace;
     private LocalTime deliveryTime;
     private EventType eventType;
-    private ClientDTO client;
-    private CarDTO car;
+    private Integer clientId;
+    private Integer carId;
     private PaymentDTO payment;
     private List<RentalAssist> rentalAssist;
 
@@ -63,20 +63,20 @@ public class RentalDTO extends IdDTO {
         this.eventType = eventType;
     }
 
-    public ClientDTO getClient() {
-        return client;
+    public Integer getClientId() {
+        return clientId;
     }
 
-    public void setClient(ClientDTO client) {
-        this.client = client;
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
-    public CarDTO getCar() {
-        return car;
+    public Integer getCarId() {
+        return carId;
     }
 
-    public void setCar(CarDTO car) {
-        this.car = car;
+    public void setCarId(Integer carId) {
+        this.carId = carId;
     }
 
     public PaymentDTO getPayment() {

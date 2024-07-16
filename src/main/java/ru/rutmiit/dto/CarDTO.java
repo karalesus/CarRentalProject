@@ -8,13 +8,19 @@ import java.util.List;
 public class CarDTO extends IdDTO {
 
     private String brand;
-    private String model;
     private String type;
-    private int releaseDate;
     private String color;
-    private int mileage;
     private BigDecimal price;
-    private boolean isAvailable;
+
+    public CarDTO() {
+    }
+
+    public CarDTO(String brand, String type, String color, BigDecimal price) {
+        this.brand = brand;
+        this.type = type;
+        this.color = color;
+        this.price = price;
+    }
 
     public String getBrand() {
         return brand;
@@ -22,14 +28,6 @@ public class CarDTO extends IdDTO {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public String getType() {
@@ -40,13 +38,6 @@ public class CarDTO extends IdDTO {
         this.type = type;
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
-    }
 
     public String getColor() {
         return color;
@@ -56,13 +47,6 @@ public class CarDTO extends IdDTO {
         this.color = color;
     }
 
-    public int getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
-    }
 
     public BigDecimal getPrice() {
         return price;
@@ -72,12 +56,5 @@ public class CarDTO extends IdDTO {
         this.price = price;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
 
 }

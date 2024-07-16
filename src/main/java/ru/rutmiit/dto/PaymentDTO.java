@@ -13,7 +13,7 @@ public class PaymentDTO extends IdDTO {
     private BigDecimal price;
     private OffsetDateTime dateTime;
     private PaymentStatus paymentStatus;
-    private Client client;
+    private int clientId;
 
     public BigDecimal getPrice() {
         return price;
@@ -39,11 +39,11 @@ public class PaymentDTO extends IdDTO {
         this.paymentStatus = paymentStatus;
     }
 
-    public Client getClient() {
-        return client;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 }
