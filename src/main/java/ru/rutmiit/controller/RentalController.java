@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.rutmiit.dto.CarDTO;
 import ru.rutmiit.dto.RentalDTO;
 import ru.rutmiit.service.implementations.CarServiceImpl;
-import ru.rutmiit.service.implementations.RentalServiceImpl;
+import ru.rutmiit.service.implementations.DomainRentalServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class RentalController {
 
     @Autowired
-    private RentalServiceImpl rentalServiceImpl;
+    private DomainRentalServiceImpl domainRentalServiceImpl;
 
     @Autowired
     private CarServiceImpl carServiceImpl;
@@ -27,7 +27,7 @@ public class RentalController {
 
     @PostMapping("/rent")
     public RentalDTO rentCar(@RequestBody RentalDTO rentalDTO) {
-        return rentalServiceImpl.rentCar(rentalDTO);
+        return domainRentalServiceImpl.rentCar(rentalDTO);
     }
 }
 

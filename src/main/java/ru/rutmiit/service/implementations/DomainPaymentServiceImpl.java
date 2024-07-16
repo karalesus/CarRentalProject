@@ -1,8 +1,5 @@
 package ru.rutmiit.service.implementations;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +16,10 @@ import ru.rutmiit.service.PaymentService;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Random;
 
 @Service
-public class PaymentServiceImpl implements PaymentService {
+public class DomainPaymentServiceImpl implements PaymentService {
 
     @Autowired
     private PaymentRepositoryImpl paymentRepositoryImpl;

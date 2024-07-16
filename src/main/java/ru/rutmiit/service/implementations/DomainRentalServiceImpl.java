@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class RentalServiceImpl implements RentalService {
+public class DomainRentalServiceImpl implements RentalService {
 
 
     @Autowired
@@ -39,7 +39,7 @@ public class RentalServiceImpl implements RentalService {
     @Autowired
     private RentalAssistRepositoryImpl rentalAssistRepositoryImpl;
     @Autowired
-    private PaymentServiceImpl paymentServiceImpl;
+    private DomainPaymentServiceImpl domainPaymentServiceImpl;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -86,18 +86,18 @@ public class RentalServiceImpl implements RentalService {
 
         BigDecimal totalPrice = calculateTotalCost(car, startDate, finishDate, chosenAssists);
 
-        paymentServiceImpl.createPayment(totalPrice, client.getId());
+        domainPaymentServiceImpl.createPayment(totalPrice, client.getId());
 
         Payment lastPendingPayment = paymentRepositoryImpl.getLatestPendingPayment();
         PaymentDTO paymentDTO = modelMapper.map(lastPendingPayment, PaymentDTO.class);
 
-        boolean isPaid = paymentServiceImpl.decidePay();
+        boolean isPaid = domainPaymentServiceImpl.decidePay();
         PaymentStatus updatedPaymentStatus;
 
         if (isPaid) { updatedPaymentStatus = PaymentStatus.COMPLETED; }
         else { updatedPaymentStatus = PaymentStatus.CANCELLED; }
 
-        paymentServiceImpl.updatePaymentStatus(paymentDTO, updatedPaymentStatus);
+        domainPaymentServiceImpl.updatePaymentStatus(paymentDTO, updatedPaymentStatus);
         lastPendingPayment.setPaymentStatus(updatedPaymentStatus);
         paymentDTO.setPaymentStatus(updatedPaymentStatus);
 
@@ -117,7 +117,7 @@ public class RentalServiceImpl implements RentalService {
 
         rentalDTO = modelMapper.map(rental, RentalDTO.class);
 
-        paymentServiceImpl.updateRentals(paymentDTO, rentalDTO);
+        domainPaymentServiceImpl.updateRentals(paymentDTO, rentalDTO);
         rentalDTO.setPayment(paymentDTO);
 
         return rentalDTO;

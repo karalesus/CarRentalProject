@@ -7,7 +7,7 @@ import ru.rutmiit.domain.Assist;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 public interface AssistRepository {
 
     List<Assist> findAllAssists();
