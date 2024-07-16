@@ -1,8 +1,10 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import ru.rutmiit.enitity.enums.PaymentMethod;
-import ru.rutmiit.enitity.enums.PaymentStatus;
+import ru.rutmiit.domain.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -12,22 +14,19 @@ import java.util.List;
 @Table(name = "payment")
 public class Payment extends IdEntity {
     private BigDecimal price;
-    private PaymentMethod paymentMethod;
     private OffsetDateTime dateTime; // timestamp + timezone
     private PaymentStatus paymentStatus;
     private Client client;
-    private List<Rental> rentals;
+    private Rental rental;
 
-    public Payment(BigDecimal price, PaymentMethod paymentMethod, OffsetDateTime dateTime, PaymentStatus paymentStatus, Client client, List<Rental> rentals) {
+    public Payment(BigDecimal price, OffsetDateTime dateTime, PaymentStatus paymentStatus, Client client) {
         this.price = price;
-        this.paymentMethod = paymentMethod;
-        this.dateTime = dateTime;
-        this.paymentStatus = paymentStatus;
+        this.dateTime = OffsetDateTime.now();
+        this.paymentStatus = PaymentStatus.PENDING;
         this.client = client;
-        this.rentals = rentals;
     }
 
-    public Payment() {
+    protected Payment() {
     }
 
     @Column(nullable = false)
@@ -39,17 +38,7 @@ public class Payment extends IdEntity {
         this.price = price;
     }
 
-    @Column(name = "payment_method")
-    @Enumerated(EnumType.STRING)
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    @Column(name = "payment_date")
+    @Column(name = "payment_date", nullable = false)
     public OffsetDateTime getDateTime() {
         return dateTime;
     }
@@ -78,12 +67,13 @@ public class Payment extends IdEntity {
         this.client = client;
     }
 
-    @OneToMany(mappedBy = "payment", targetEntity = Rental.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Rental> getRentals() {
-        return rentals;
+    @OneToOne(mappedBy = "payment", targetEntity = Rental.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    public Rental getRentals() {
+        return rental;
     }
 
-    public void setRentals(List<Rental> rentals) {
-        this.rentals = rentals;
+    public void setRentals(Rental rentals) {
+        this.rental = rental;
     }
 }

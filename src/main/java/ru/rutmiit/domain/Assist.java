@@ -1,18 +1,29 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
-@Table(name = "service")
-public class Service extends IdEntity {
+@Table(name = "assist")
+public class Assist extends IdEntity {
 
     private String name;
     private String description;
     private BigDecimal price;
+    private List<RentalAssist> rentalAssist;
+
+    public Assist(String name, String description, BigDecimal price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    protected Assist() {}
 
     @Column(nullable = false)
     public String getName() {
@@ -39,5 +50,15 @@ public class Service extends IdEntity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    @OneToMany(mappedBy = "id.assist",
+            targetEntity = RentalAssist.class)
+    public List<RentalAssist> getRentalAssist() {
+        return rentalAssist;
+    }
+
+    public void setRentalAssist(List<RentalAssist> rentalAssist) {
+        this.rentalAssist = rentalAssist;
     }
 }

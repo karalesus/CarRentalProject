@@ -1,4 +1,4 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,4 +18,5 @@ public abstract class IdEntity {
     public void setId(int id) {
         this.id = id;
     }
+
 }

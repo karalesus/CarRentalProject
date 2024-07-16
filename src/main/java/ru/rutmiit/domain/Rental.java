@@ -1,51 +1,60 @@
-package ru.rutmiit.enitity;
+package ru.rutmiit.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import ru.rutmiit.domain.enums.EventType;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "rental")
 public class Rental extends IdEntity {
 
-    private Date startDate;
-    private Date finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
     private String deliveryPlace;
     private LocalTime deliveryTime;
+    private EventType eventType;
     private Client client;
     private Car car;
     private Payment payment;
+    private List<RentalAssist> rentalAssist;
 
-    public Rental(Date startDate, Date finishDate, String deliveryPlace, LocalTime deliveryTime, Client client, Car car, Payment payment) {
+    public Rental(LocalDate startDate, LocalDate finishDate, String deliveryPlace, LocalTime deliveryTime, EventType eventType, Client client, Car car, Payment payment) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.deliveryPlace = deliveryPlace;
         this.deliveryTime = deliveryTime;
+        this.eventType = eventType;
         this.client = client;
         this.car = car;
         this.payment = payment;
     }
 
-    public Rental() {
+    protected Rental() {
     }
 
     @Column(name = "start_date", nullable = false)
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
     @Column(name = "finish_date", nullable = false)
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 
@@ -67,6 +76,15 @@ public class Rental extends IdEntity {
         this.deliveryTime = deliveryTime;
     }
 
+    @Column(name = "event_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "client_id", nullable = false)
@@ -88,13 +106,24 @@ public class Rental extends IdEntity {
         this.car = car;
     }
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "payment_id", nullable = false)
+    @JsonBackReference
     public Payment getPayment() {
         return payment;
     }
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    @OneToMany(mappedBy = "id.rental",
+            targetEntity = RentalAssist.class)
+    public List<RentalAssist> getRentalAssist() {
+        return rentalAssist;
+    }
+
+    public void setRentalAssist(List<RentalAssist> rentalAssist) {
+        this.rentalAssist = rentalAssist;
     }
 }
