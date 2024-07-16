@@ -14,9 +14,5 @@ public interface CarService {
 
     List<CarDTO> getAvailableCarsByDate(LocalDate startDate, LocalDate finishDate);
 
-//    List<Car> getRentalCarsByDate(LocalDate startDate, LocalDate finishDate);
-
-    void setCarStatusUnavailableOrAvailable(int id, boolean isAvailable);
-
-    List<CarDTO> getCarsByAttributes(Car car);
+    List<CarDTO> getCarsByAttributes(CarDTO carDTO);
 }

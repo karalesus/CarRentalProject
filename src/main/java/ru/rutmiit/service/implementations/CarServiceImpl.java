@@ -30,23 +30,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void setCarStatusUnavailableOrAvailable(int id, boolean isAvailable) {
-            Car car = carRepositoryImpl.findById(Car.class, id);
-            car.setAvailable(isAvailable);
-            carRepositoryImpl.save(car);
-    }
-
-    @Override
-    public List<CarDTO> getCarsByAttributes(Car car) {
+    public List<CarDTO> getCarsByAttributes(CarDTO carDTO) {
         List<Car> cars = carRepositoryImpl.getCarsByAttributes(
-                car.getBrand(),
-                car.getType(),
-                car.getReleaseDate(),
-                car.getColor(),
-                car.getPrice()
+                carDTO.getBrand(),
+                carDTO.getType(),
+                carDTO.getColor(),
+                carDTO.getPrice()
         );
         return cars.stream()
                 .map(c -> modelMapper.map(c, CarDTO.class))
                 .collect(Collectors.toList());
     }
+
 }
