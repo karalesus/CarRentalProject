@@ -2,7 +2,6 @@ package ru.rutmiit.repository.implementations;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.rutmiit.domain.Car;
 import ru.rutmiit.repository.BaseRepository;
@@ -29,25 +28,25 @@ public class CarRepositoryImpl extends BaseRepository<Car, Integer> implements C
                 .getResultList();
     }
 
-    @Override
     public List<Car> getAvailableCarsByDate(LocalDate startDate, LocalDate finishDate) {
-        return entityManager.createQuery("SELECT c FROM Car c WHERE c.id NOT IN " +
-                "(SELECT DISTINCT r.car.id FROM Rental r WHERE " +
-                "(r.car.available = false) AND " +
-                "(r.startDate BETWEEN :startDate AND :finishDate OR r.finishDate BETWEEN :startDate AND :finishDate))", Car.class)
+        return entityManager.createQuery("SELECT c FROM Car c WHERE c.id NOT IN (" +
+                "SELECT r.car.id FROM Rental r WHERE " +
+                "r.car.available = false OR " +
+                "(r.startDate <= :finishDate AND r.finishDate >= :startDate))", Car.class)
                 .setParameter("startDate", startDate)
                 .setParameter("finishDate", finishDate)
                 .getResultList();
     }
 
+
     @Override
-    public List<Car> getCarsByAttributes(String brand, String type, int releaseDate, String color, BigDecimal price) {
-        return entityManager.createQuery("SELECT c FROM Car c WHERE (:brand is null OR c.brand=:brand) AND (:type is null OR c.type=:type) AND (:color is null OR c.color=:color) AND (:releaseDate is null OR c.releaseDate=:releaseDate) AND (:price is null OR c.price=:price) order by c.id asc", Car.class)
+    public List<Car> getCarsByAttributes(String brand, String type, String color, BigDecimal price) {
+        return entityManager.createQuery("SELECT c FROM Car c WHERE (:brand is null OR c.brand=:brand) AND (:type is null OR c.type=:type) AND (:color is null OR c.color=:color) AND (:price is null OR c.price=:price) order by c.id asc", Car.class)
                 .setParameter("brand", brand)
                 .setParameter("type", type)
-                .setParameter("releaseDate", releaseDate)
                 .setParameter("color", color)
                 .setParameter("price", price)
                 .getResultList();
     }
+
 }

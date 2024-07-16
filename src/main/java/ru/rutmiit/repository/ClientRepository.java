@@ -6,4 +6,5 @@ import ru.rutmiit.domain.Client;
 
 @Repository
 public interface ClientRepository {
+
 }

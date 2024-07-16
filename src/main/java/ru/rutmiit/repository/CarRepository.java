@@ -18,6 +18,5 @@ public interface CarRepository {
 
     List<Car> getAvailableCarsByDate(LocalDate startDate, LocalDate finishDate);
 
-    List<Car> getCarsByAttributes(String brand, String type, int releaseDate, String color, BigDecimal price);
-
+    List<Car> getCarsByAttributes(String brand, String type, String color, BigDecimal price);
 }
