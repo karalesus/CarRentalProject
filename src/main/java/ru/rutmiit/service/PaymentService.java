@@ -1,6 +1,5 @@
 package ru.rutmiit.service;
 
-import org.springframework.stereotype.Service;
 import ru.rutmiit.domain.Payment;
 import ru.rutmiit.domain.enums.PaymentStatus;
 import ru.rutmiit.dto.PaymentDTO;
@@ -8,7 +7,6 @@ import ru.rutmiit.dto.RentalDTO;
 
 import java.math.BigDecimal;
 
-@Service
 public interface PaymentService {
     void completePayment(Payment payment);
     void cancelPayment(Payment payment);
