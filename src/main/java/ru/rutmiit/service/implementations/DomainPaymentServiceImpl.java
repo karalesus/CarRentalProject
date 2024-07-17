@@ -1,8 +1,5 @@
 package ru.rutmiit.service.implementations;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,16 +16,15 @@ import ru.rutmiit.service.PaymentService;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Random;
 
 @Service
-public class PaymentServiceImpl implements PaymentService {
+public class DomainPaymentServiceImpl implements PaymentService {
 
     @Autowired
-    private PaymentRepositoryImpl paymentRepositoryImpl;
+    private PaymentRepositoryImpl paymentRepository;
     @Autowired
-    private ClientRepositoryImpl clientRepositoryImpl;
+    private ClientRepositoryImpl clientRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -36,22 +32,22 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void completePayment(Payment payment) {
         if (checkPayment(payment)) {
-            paymentRepositoryImpl.updateStatus(payment.getId(), PaymentStatus.COMPLETED);
+            paymentRepository.updateStatus(payment.getId(), PaymentStatus.COMPLETED);
         }
     }
 
     @Override
     public void cancelPayment(Payment payment) {
         if (!checkPayment(payment)) {
-            paymentRepositoryImpl.updateStatus(payment.getId(), PaymentStatus.CANCELLED);
+            paymentRepository.updateStatus(payment.getId(), PaymentStatus.CANCELLED);
         }
     }
 
     @Override
     public void createPayment(BigDecimal totalCost, int clientDTOId) {
         Payment payment = new Payment(totalCost, OffsetDateTime.now(),
-                PaymentStatus.PENDING, clientRepositoryImpl.findById(Client.class, clientDTOId));
-        paymentRepositoryImpl.save(payment);
+                PaymentStatus.PENDING, clientRepository.findById(Client.class, clientDTOId));
+        paymentRepository.save(payment);
     }
 
     @Override
@@ -66,7 +62,7 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = mapPaymentDTOToEntity(paymentDTO);
         Rental rental = payment.getRentals();
         payment.setRentals(rental);
-        paymentRepositoryImpl.update(payment);
+        paymentRepository.update(payment);
     }
 
 
@@ -94,7 +90,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private Payment mapPaymentDTOToEntity(PaymentDTO paymentDTO) {
         Payment mappedPayment = modelMapper.map(paymentDTO, Payment.class);
-        Client client = clientRepositoryImpl.findById(Client.class, paymentDTO.getClientId());
+        Client client = clientRepository.findById(Client.class, paymentDTO.getClientId());
         mappedPayment.setClient(client);
         return mappedPayment;
     }

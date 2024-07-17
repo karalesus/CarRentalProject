@@ -68,7 +68,6 @@ public class Payment extends IdEntity {
     }
 
     @OneToOne(mappedBy = "payment", targetEntity = Rental.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
     public Rental getRentals() {
         return rental;
     }

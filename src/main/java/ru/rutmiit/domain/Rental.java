@@ -108,7 +108,6 @@ public class Rental extends IdEntity {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "payment_id", nullable = false)
-    @JsonBackReference
     public Payment getPayment() {
         return payment;
     }

@@ -30,9 +30,9 @@ public class CarRepositoryImpl extends BaseRepository<Car, Integer> implements C
 
     public List<Car> getAvailableCarsByDate(LocalDate startDate, LocalDate finishDate) {
         return entityManager.createQuery("SELECT c FROM Car c WHERE c.id NOT IN (" +
-                "SELECT r.car.id FROM Rental r WHERE " +
-                "r.car.available = false OR " +
-                "(r.startDate <= :finishDate AND r.finishDate >= :startDate))", Car.class)
+                        "SELECT r.car.id FROM Rental r WHERE " +
+                        "r.car.available = false OR " +
+                        "(r.startDate <= :finishDate AND r.finishDate >= :startDate))", Car.class)
                 .setParameter("startDate", startDate)
                 .setParameter("finishDate", finishDate)
                 .getResultList();
@@ -48,5 +48,4 @@ public class CarRepositoryImpl extends BaseRepository<Car, Integer> implements C
                 .setParameter("price", price)
                 .getResultList();
     }
-
 }

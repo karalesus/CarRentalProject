@@ -23,23 +23,23 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class RentalServiceImpl implements RentalService {
+public class DomainRentalServiceImpl implements RentalService {
 
 
     @Autowired
-    private RentalRepositoryImpl rentalRepositoryImpl;
+    private RentalRepositoryImpl rentalRepository;
     @Autowired
-    private CarRepositoryImpl carRepositoryImpl;
+    private CarRepositoryImpl carRepository;
     @Autowired
-    private ClientRepositoryImpl clientRepositoryImpl;
+    private ClientRepositoryImpl clientRepository;
     @Autowired
     private AssistRepository assistRepository;
     @Autowired
-    private PaymentRepositoryImpl paymentRepositoryImpl;
+    private PaymentRepositoryImpl paymentRepository;
     @Autowired
-    private RentalAssistRepositoryImpl rentalAssistRepositoryImpl;
+    private RentalAssistRepositoryImpl rentalAssistRepository;
     @Autowired
-    private PaymentServiceImpl paymentServiceImpl;
+    private DomainPaymentServiceImpl domainPaymentService;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -72,37 +72,40 @@ public class RentalServiceImpl implements RentalService {
         LocalTime deliveryTime = rentalDTO.getDeliveryTime();
         EventType eventType = rentalDTO.getEventType();
 
-        Client client = clientRepositoryImpl.findById(Client.class, clientId);
-        Car car = carRepositoryImpl.findById(Car.class, carId);
+        Client client = clientRepository.findById(Client.class, clientId);
+        Car car = carRepository.findById(Car.class, carId);
 
 
         if (!car.isAvailable()) {
             throw new NoAvailableCarsException("Нет доступных машин для аренды");
         }
-        if (carRepositoryImpl.getAvailableCarsByDate(startDate, finishDate).isEmpty()) {
+        if (carRepository.getAvailableCarsByDate(startDate, finishDate).isEmpty()) {
             throw new NoAvailableCarsException("Нет доступных машин на эти даты");
         }
         List<Assist> chosenAssists = choiceAssists(assistRepository.findAllAssists());
 
         BigDecimal totalPrice = calculateTotalCost(car, startDate, finishDate, chosenAssists);
 
-        paymentServiceImpl.createPayment(totalPrice, client.getId());
+        domainPaymentService.createPayment(totalPrice, client.getId());
 
-        Payment lastPendingPayment = paymentRepositoryImpl.getLatestPendingPayment();
+        Payment lastPendingPayment = paymentRepository.getLatestPendingPayment();
         PaymentDTO paymentDTO = modelMapper.map(lastPendingPayment, PaymentDTO.class);
 
-        boolean isPaid = paymentServiceImpl.decidePay();
+        boolean isPaid = domainPaymentService.decidePay();
         PaymentStatus updatedPaymentStatus;
 
-        if (isPaid) { updatedPaymentStatus = PaymentStatus.COMPLETED; }
-        else { updatedPaymentStatus = PaymentStatus.CANCELLED; }
+        if (isPaid) {
+            updatedPaymentStatus = PaymentStatus.COMPLETED;
+        } else {
+            updatedPaymentStatus = PaymentStatus.CANCELLED;
+        }
 
-        paymentServiceImpl.updatePaymentStatus(paymentDTO, updatedPaymentStatus);
+        domainPaymentService.updatePaymentStatus(paymentDTO, updatedPaymentStatus);
         lastPendingPayment.setPaymentStatus(updatedPaymentStatus);
         paymentDTO.setPaymentStatus(updatedPaymentStatus);
 
         Rental rental = new Rental(startDate, finishDate, deliveryPlace, deliveryTime, eventType, client, car, lastPendingPayment);
-        rentalRepositoryImpl.save(rental);
+        rentalRepository.save(rental);
 
         List<RentalAssist> rentalAssists = new ArrayList<>();
         for (Assist assist : chosenAssists) {
@@ -110,14 +113,14 @@ public class RentalServiceImpl implements RentalService {
             rentalAssistKeys.setRental(rental);
             rentalAssistKeys.setAssist(assist);
             RentalAssist rentalAssist = new RentalAssist(rentalAssistKeys);
-            rentalAssistRepositoryImpl.save(rentalAssist);
+            rentalAssistRepository.save(rentalAssist);
             rentalAssists.add(rentalAssist);
         }
         rental.setRentalAssist(rentalAssists);
 
         rentalDTO = modelMapper.map(rental, RentalDTO.class);
 
-        paymentServiceImpl.updateRentals(paymentDTO, rentalDTO);
+        domainPaymentService.updateRentals(paymentDTO, rentalDTO);
         rentalDTO.setPayment(paymentDTO);
 
         return rentalDTO;

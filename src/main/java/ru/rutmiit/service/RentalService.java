@@ -1,6 +1,5 @@
 package ru.rutmiit.service;
 
-import org.springframework.stereotype.Service;
 import ru.rutmiit.domain.*;
 import ru.rutmiit.dto.RentalDTO;
 
@@ -8,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
+
 
 public interface RentalService {
 
